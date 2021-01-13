@@ -1,5 +1,7 @@
 package match
 
+import "github.com/nbutton23/zxcvbn-go/feedback"
+
 //Matches is an alies for []Match used for sorting
 type Matches []Match
 
@@ -26,6 +28,7 @@ type Match struct {
 	Token          string
 	DictionaryName string
 	Entropy        float64
+	GetFeedback    func() feedback.Feedback
 }
 
 //DateMatch is specifilly a match for type date

@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/nbutton23/zxcvbn-go/entropy"
+	"github.com/nbutton23/zxcvbn-go/feedback"
 	"github.com/nbutton23/zxcvbn-go/match"
 )
 
@@ -57,6 +58,7 @@ func dateSepMatcher(password string) []match.Match {
 			Entropy:        entropy.DateEntropy(dateMatch),
 			DictionaryName: "date_match",
 			Token:          dateMatch.Token,
+			GetFeedback:    feedback.DateFeedback,
 		}
 
 		matches = append(matches, match)
@@ -128,6 +130,7 @@ func dateWithoutSepMatch(password string) []match.Match {
 			Entropy:        entropy.DateEntropy(dateMatch),
 			DictionaryName: "date_match",
 			Token:          dateMatch.Token,
+			GetFeedback:    feedback.DateFeedback,
 		}
 
 		matches = append(matches, match)

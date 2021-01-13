@@ -3,6 +3,8 @@ package matching
 import (
 	"strings"
 
+	"github.com/nbutton23/zxcvbn-go/feedback"
+
 	"github.com/nbutton23/zxcvbn-go/adjacency"
 	"github.com/nbutton23/zxcvbn-go/entropy"
 	"github.com/nbutton23/zxcvbn-go/match"
@@ -73,7 +75,16 @@ func spatialMatchHelper(password string, graph adjacency.Graph) (matches []match
 				//otherwise push the pattern discovered so far, if any...
 				//don't consider length 1 or 2 chains.
 				if j-i > 2 {
-					matchSpc := match.Match{Pattern: "spatial", I: i, J: j - 1, Token: password[i:j], DictionaryName: graph.Name}
+					matchSpc := match.Match{
+						Pattern:        "spatial",
+						I:              i,
+						J:              j - 1,
+						Token:          password[i:j],
+						DictionaryName: graph.Name,
+						GetFeedback: func() feedback.Feedback {
+							return feedback.SpatialFeedback(turns)
+						},
+					}
 					matchSpc.Entropy = entropy.SpatialEntropy(matchSpc, turns, shiftedCount)
 					matches = append(matches, matchSpc)
 				}

@@ -2,11 +2,13 @@ package scoring
 
 import (
 	"fmt"
-	"github.com/nbutton23/zxcvbn-go/entropy"
-	"github.com/nbutton23/zxcvbn-go/match"
-	"github.com/nbutton23/zxcvbn-go/utils/math"
 	"math"
 	"sort"
+
+	"github.com/nbutton23/zxcvbn-go/entropy"
+	"github.com/nbutton23/zxcvbn-go/feedback"
+	"github.com/nbutton23/zxcvbn-go/match"
+	zxcvbnmath "github.com/nbutton23/zxcvbn-go/utils/math"
 )
 
 const (
@@ -24,6 +26,7 @@ type MinEntropyMatch struct {
 	Password         string
 	Entropy          float64
 	MatchSequence    []match.Match
+	Feedback         feedback.Feedback
 	CrackTime        float64
 	CrackTimeDisplay string
 	Score            int
